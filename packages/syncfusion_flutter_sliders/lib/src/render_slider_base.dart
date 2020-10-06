@@ -996,6 +996,7 @@ class _RenderBaseSlider extends RenderProxyBox
               startThumbCenter,
               endThumbCenter,
               value,
+              textValue,
               values,
               stateAnimation,
               offsetX);
@@ -1121,6 +1122,7 @@ class _RenderBaseSlider extends RenderProxyBox
       Offset startThumbCenter,
       Offset endThumbCenter,
       value,
+      selfValue,
       SfRangeValues values,
       Animation<double> stateAnimation,
       double offsetX) {
@@ -1129,12 +1131,12 @@ class _RenderBaseSlider extends RenderProxyBox
     final Offset actualLabelOffset =
         Offset(offsetX, dy + trackRect.height + actualTickHeight) +
             (_sliderThemeData.labelOffset ?? const Offset(0, 0));
-
     _drawText(context, actualLabelOffset, thumbCenter, startThumbCenter,
         endThumbCenter, labelText,
         parentBox: this,
         themeData: _sliderThemeData,
         currentValue: value,
+        selfValue: selfValue,
         currentValues: values,
         enableAnimation: stateAnimation,
         textPainter: textPainter,
@@ -1144,12 +1146,13 @@ class _RenderBaseSlider extends RenderProxyBox
   void _drawText(PaintingContext context, Offset center, Offset thumbCenter,
       Offset startThumbCenter, Offset endThumbCenter, String text,
       {RenderProxyBox parentBox,
-      SfSliderThemeData themeData,
-      dynamic currentValue,
-      SfRangeValues currentValues,
-      Animation<double> enableAnimation,
-      TextPainter textPainter,
-      TextDirection textDirection}) {
+        SfSliderThemeData themeData,
+        dynamic currentValue,
+        dynamic selfValue,
+        SfRangeValues currentValues,
+        Animation<double> enableAnimation,
+        TextPainter textPainter,
+        TextDirection textDirection}) {
     bool isInactive;
     switch (textDirection) {
       case TextDirection.ltr:
@@ -1166,12 +1169,26 @@ class _RenderBaseSlider extends RenderProxyBox
         break;
     }
 
-    final TextSpan textSpan = TextSpan(
-      text: text,
-      style: isInactive
-          ? themeData.inactiveLabelStyle
-          : themeData.activeLabelStyle,
-    );
+    TextSpan textSpan;
+    if (currentValue != null && currentValue == selfValue) {
+      textSpan = TextSpan(
+        text: text,
+        style: themeData.currentLabelStyle,
+      );
+    } else if (currentValues != null &&
+        (currentValues.start == selfValue || currentValues.end == selfValue)) {
+      textSpan = TextSpan(
+        text: text,
+        style: themeData.currentLabelStyle,
+      );
+    } else {
+      textSpan = TextSpan(
+        text: text,
+        style: isInactive
+            ? themeData.inactiveLabelStyle
+            : themeData.activeLabelStyle,
+      );
+    }
     textPainter.text = textSpan;
     textPainter.layout();
     textPainter.paint(

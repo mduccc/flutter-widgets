@@ -161,6 +161,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
       TextStyle inactiveLabelStyle,
       TextStyle activeLabelStyle,
       TextStyle tooltipTextStyle,
+      TextStyle currentLabelStyle,
       Color inactiveTrackColor,
       Color activeTrackColor,
       Color thumbColor,
@@ -231,6 +232,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
         inactiveLabelStyle: inactiveLabelStyle,
         activeLabelStyle: activeLabelStyle,
         tooltipTextStyle: tooltipTextStyle,
+        currentLabelStyle: currentLabelStyle,
         inactiveTrackColor: inactiveTrackColor,
         activeTrackColor: activeTrackColor,
         inactiveDivisorColor: inactiveDivisorColor,
@@ -285,6 +287,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
     @required TextStyle inactiveLabelStyle,
     @required TextStyle activeLabelStyle,
     @required TextStyle tooltipTextStyle,
+    @required TextStyle currentLabelStyle,
     @required Color inactiveTrackColor,
     @required Color activeTrackColor,
     @required Color thumbColor,
@@ -331,6 +334,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
             inactiveLabelStyle: inactiveLabelStyle,
             activeLabelStyle: activeLabelStyle,
             tooltipTextStyle: tooltipTextStyle,
+            currentLabelStyle: currentLabelStyle,
             inactiveTrackColor: inactiveTrackColor,
             activeTrackColor: activeTrackColor,
             inactiveDivisorColor: inactiveDivisorColor,
@@ -455,6 +459,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
     TextStyle inactiveLabelStyle,
     TextStyle activeLabelStyle,
     TextStyle tooltipTextStyle,
+    TextStyle currentLabelStyle,
     Color inactiveTrackColor,
     Color activeTrackColor,
     Color thumbColor,
@@ -502,6 +507,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
       inactiveLabelStyle: inactiveLabelStyle ?? this.inactiveLabelStyle,
       activeLabelStyle: activeLabelStyle ?? this.activeLabelStyle,
       tooltipTextStyle: tooltipTextStyle ?? this.tooltipTextStyle,
+      currentLabelStyle: currentLabelStyle ?? this.currentLabelStyle,
       inactiveTrackColor: inactiveTrackColor ?? this.inactiveTrackColor,
       activeTrackColor: activeTrackColor ?? this.activeTrackColor,
       thumbColor: thumbColor ?? this.thumbColor,
@@ -581,6 +587,8 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
             TextStyle.lerp(a.activeLabelStyle, b.activeLabelStyle, t),
         tooltipTextStyle:
             TextStyle.lerp(a.tooltipTextStyle, b.tooltipTextStyle, t),
+        currentLabelStyle:
+            TextStyle.lerp(a.currentLabelStyle, b.currentLabelStyle, t),
         inactiveTrackColor:
             Color.lerp(a.inactiveTrackColor, b.inactiveTrackColor, t),
         activeTrackColor: Color.lerp(a.activeTrackColor, b.activeTrackColor, t),
@@ -628,8 +636,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
             Color.lerp(a.activeRegionColor, b.activeRegionColor, t),
         inactiveRegionColor:
             Color.lerp(a.inactiveRegionColor, b.inactiveRegionColor, t),
-        tooltipBackgroundColor:
-            Color.lerp(a.tooltipBackgroundColor, b.tooltipBackgroundColor, t),
+        tooltipBackgroundColor: Color.lerp(a.tooltipBackgroundColor, b.tooltipBackgroundColor, t),
         overlappingTooltipStrokeColor: Color.lerp(a.overlappingTooltipStrokeColor, b.overlappingTooltipStrokeColor, t),
         trackCornerRadius: lerpDouble(a.trackCornerRadius, b.trackCornerRadius, t),
         overlayRadius: lerpDouble(a.overlayRadius, b.overlayRadius, t),
@@ -660,6 +667,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
         otherData.inactiveLabelStyle == inactiveLabelStyle &&
         otherData.activeLabelStyle == activeLabelStyle &&
         otherData.tooltipTextStyle == tooltipTextStyle &&
+        otherData.currentLabelStyle == currentLabelStyle &&
         otherData.inactiveTrackColor == inactiveTrackColor &&
         otherData.activeTrackColor == activeTrackColor &&
         otherData.thumbColor == thumbColor &&
@@ -714,6 +722,7 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
       inactiveLabelStyle,
       activeLabelStyle,
       tooltipTextStyle,
+      currentLabelStyle,
       inactiveTrackColor,
       activeTrackColor,
       thumbColor,
@@ -779,6 +788,9 @@ class SfRangeSelectorThemeData extends SfRangeSliderThemeData {
     properties.add(DiagnosticsProperty<TextStyle>(
         'tooltipTextStyle', tooltipTextStyle,
         defaultValue: defaultData.tooltipTextStyle));
+    properties.add(DiagnosticsProperty<TextStyle>(
+        'currentLabelStyle', currentLabelStyle,
+        defaultValue: defaultData.currentLabelStyle));
     properties.add(ColorProperty('inactiveTrackColor', inactiveTrackColor,
         defaultValue: defaultData.inactiveTrackColor));
     properties.add(ColorProperty('activeTrackColor', activeTrackColor,
