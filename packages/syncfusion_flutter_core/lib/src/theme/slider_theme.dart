@@ -83,46 +83,47 @@ class SfSliderThemeData with Diagnosticable {
   /// If any of the values are null, the default values will be set.
   factory SfSliderThemeData(
       {Brightness brightness,
-      double activeTrackHeight,
-      double inactiveTrackHeight,
-      Size tickSize,
-      Size minorTickSize,
-      Offset tickOffset,
-      Offset labelOffset,
-      TextStyle inactiveLabelStyle,
-      TextStyle activeLabelStyle,
-      TextStyle tooltipTextStyle,
-      Color inactiveTrackColor,
-      Color activeTrackColor,
-      Color thumbColor,
-      Color activeTickColor,
-      Color inactiveTickColor,
-      Color disabledActiveTickColor,
-      Color disabledInactiveTickColor,
-      Color activeMinorTickColor,
-      Color inactiveMinorTickColor,
-      Color disabledActiveMinorTickColor,
-      Color disabledInactiveMinorTickColor,
-      Color overlayColor,
-      Color inactiveDivisorColor,
-      Color activeDivisorColor,
-      Color disabledActiveTrackColor,
-      Color disabledInactiveTrackColor,
-      Color disabledActiveDivisorColor,
-      Color disabledInactiveDivisorColor,
-      Color disabledThumbColor,
-      Color tooltipBackgroundColor,
-      Color thumbStrokeColor,
-      Color activeDivisorStrokeColor,
-      Color inactiveDivisorStrokeColor,
-      double trackCornerRadius,
-      double overlayRadius,
-      double thumbRadius,
-      double activeDivisorRadius,
-      double inactiveDivisorRadius,
-      double thumbStrokeWidth,
-      double activeDivisorStrokeWidth,
-      double inactiveDivisorStrokeWidth}) {
+        double activeTrackHeight,
+        double inactiveTrackHeight,
+        Size tickSize,
+        Size minorTickSize,
+        Offset tickOffset,
+        Offset labelOffset,
+        TextStyle inactiveLabelStyle,
+        TextStyle activeLabelStyle,
+        TextStyle tooltipTextStyle,
+        TextStyle currentLabelStyle,
+        Color inactiveTrackColor,
+        Color activeTrackColor,
+        Color thumbColor,
+        Color activeTickColor,
+        Color inactiveTickColor,
+        Color disabledActiveTickColor,
+        Color disabledInactiveTickColor,
+        Color activeMinorTickColor,
+        Color inactiveMinorTickColor,
+        Color disabledActiveMinorTickColor,
+        Color disabledInactiveMinorTickColor,
+        Color overlayColor,
+        Color inactiveDivisorColor,
+        Color activeDivisorColor,
+        Color disabledActiveTrackColor,
+        Color disabledInactiveTrackColor,
+        Color disabledActiveDivisorColor,
+        Color disabledInactiveDivisorColor,
+        Color disabledThumbColor,
+        Color tooltipBackgroundColor,
+        Color thumbStrokeColor,
+        Color activeDivisorStrokeColor,
+        Color inactiveDivisorStrokeColor,
+        double trackCornerRadius,
+        double overlayRadius,
+        double thumbRadius,
+        double activeDivisorRadius,
+        double inactiveDivisorRadius,
+        double thumbStrokeWidth,
+        double activeDivisorStrokeWidth,
+        double inactiveDivisorStrokeWidth}) {
     brightness = brightness ?? Brightness.light;
     activeTrackHeight ??= 6.0;
     inactiveTrackHeight ??= 4.0;
@@ -151,6 +152,7 @@ class SfSliderThemeData with Diagnosticable {
         inactiveLabelStyle: inactiveLabelStyle,
         activeLabelStyle: activeLabelStyle,
         tooltipTextStyle: tooltipTextStyle,
+        currentLabelStyle: currentLabelStyle,
         inactiveTrackColor: inactiveTrackColor,
         activeTrackColor: activeTrackColor,
         inactiveDivisorColor: inactiveDivisorColor,
@@ -201,6 +203,7 @@ class SfSliderThemeData with Diagnosticable {
     @required this.inactiveLabelStyle,
     @required this.activeLabelStyle,
     @required this.tooltipTextStyle,
+    @required this.currentLabelStyle,
     @required this.inactiveTrackColor,
     @required this.activeTrackColor,
     @required this.thumbColor,
@@ -247,6 +250,7 @@ class SfSliderThemeData with Diagnosticable {
     TextStyle inactiveLabelStyle,
     TextStyle activeLabelStyle,
     TextStyle tooltipTextStyle,
+    TextStyle currentLabelStyle,
     Color inactiveTrackColor,
     Color activeTrackColor,
     Color thumbColor,
@@ -292,6 +296,7 @@ class SfSliderThemeData with Diagnosticable {
       inactiveLabelStyle: inactiveLabelStyle ?? this.inactiveLabelStyle,
       activeLabelStyle: activeLabelStyle ?? this.activeLabelStyle,
       tooltipTextStyle: tooltipTextStyle ?? this.tooltipTextStyle,
+      currentLabelStyle: currentLabelStyle ?? this.currentLabelStyle,
       inactiveTrackColor: inactiveTrackColor ?? this.inactiveTrackColor,
       activeTrackColor: activeTrackColor ?? this.activeTrackColor,
       thumbColor: thumbColor ?? this.thumbColor,
@@ -365,6 +370,8 @@ class SfSliderThemeData with Diagnosticable {
             TextStyle.lerp(a.activeLabelStyle, b.activeLabelStyle, t),
         tooltipTextStyle:
             TextStyle.lerp(a.tooltipTextStyle, b.tooltipTextStyle, t),
+        currentLabelStyle:
+            TextStyle.lerp(a.currentLabelStyle, b.currentLabelStyle, t),
         inactiveTrackColor:
             Color.lerp(a.inactiveTrackColor, b.inactiveTrackColor, t),
         activeTrackColor: Color.lerp(a.activeTrackColor, b.activeTrackColor, t),
@@ -441,6 +448,7 @@ class SfSliderThemeData with Diagnosticable {
         otherData.inactiveLabelStyle == inactiveLabelStyle &&
         otherData.activeLabelStyle == activeLabelStyle &&
         otherData.tooltipTextStyle == tooltipTextStyle &&
+        otherData.currentLabelStyle == currentLabelStyle &&
         otherData.inactiveTrackColor == inactiveTrackColor &&
         otherData.activeTrackColor == activeTrackColor &&
         otherData.thumbColor == thumbColor &&
@@ -490,6 +498,7 @@ class SfSliderThemeData with Diagnosticable {
       inactiveLabelStyle,
       activeLabelStyle,
       tooltipTextStyle,
+      currentLabelStyle,
       inactiveTrackColor,
       activeTrackColor,
       thumbColor,
@@ -1173,6 +1182,34 @@ class SfSliderThemeData with Diagnosticable {
   /// )
   /// ```
   final TextStyle tooltipTextStyle;
+
+  /// Specify [TextStyle] for label
+  /// if current label value is equivalent current slider value,
+  /// ```dart
+  /// SfRangeValues _values = SfRangeValues(4.0, 7.0);
+  ///
+  /// Scaffold(
+  ///   body: Center(
+  ///       child: SfRangeSliderTheme(
+  ///           data: SfRangeSliderThemeData(
+  ///               inactiveDivisorStrokeWidth: 2,
+  ///               currentLabelStyle: Colors.red,
+  ///           ),
+  ///           child:  SfRangeSlider(
+  ///               min: 2.0,
+  ///               max: 10.0,
+  ///               values: _values,
+  ///               onChanged: (SfRangeValues newValues){
+  ///                   setState(() {
+  ///                       _values = newValues;
+  ///                   });
+  ///               },
+  ///           )
+  ///       ),
+  ///    )
+  /// )
+  /// ```
+  final TextStyle currentLabelStyle;
 
   /// Specifies the color for the inactive track in the [SfSlider],
   /// [SfRangeSlider], and [SfRangeSelector].

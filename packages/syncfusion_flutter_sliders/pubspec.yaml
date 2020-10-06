@@ -13,6 +13,8 @@ dependencies:
   intl: ">=0.15.0 <0.17.0"
 
   syncfusion_flutter_core:
-    path: ../syncfusion_flutter_core
-
+    git:
+      url: https://github.com/mduccc/flutter-widgets.git
+      ref: add_support_custom_current_label_style
+      path: packages/syncfusion_flutter_core
 flutter:
